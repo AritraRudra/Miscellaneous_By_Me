@@ -1,6 +1,6 @@
 /**
- * Using an array to pass a variable number of arguments to a method. This is
- * the old-style approach to variable-length arguments.
+ * Java Variable Length Arguments demo
+ * @since JDK 1.5
  */
 public class VarArgsDemo_1 {
 	static void varArgsTest(int... varArgs) {
