@@ -51,6 +51,20 @@ public class Stack<T> {
 	}
 
 	/**
+	 * See the item on top of the stack. Just returns the item, does not changes Stack pointer 
+	 * 
+	 * @return Returns the item present at top of the Stack.
+	 * @throws Exception
+	 *             when Stack is empty.
+	 */
+	public T peek() throws Exception {
+		if (this.tos < 0)
+			throw new Exception("Stack underflow.");
+		else {
+			return this.stack[this.tos];
+		}
+	}
+	/**
 	 * Returns true if this Stack is full.
 	 *
 	 * @return {@code true} if this Stack is full; {@code false} otherwise.
