@@ -11,7 +11,7 @@ public class VarArgsAsArray {
 		System.out.println();
 	}
 
-	public static void main(String args[]) {
+	public static void main(String ... args) {
 		// An array must be created to hold the arguments, one of the drawbacks !!
 		int n1[] = { 10 };
 		int n2[] = { 1, 2, 3 };
