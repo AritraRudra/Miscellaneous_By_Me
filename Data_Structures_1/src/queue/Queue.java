@@ -1,8 +1,6 @@
 package queue;
 
-import java.util.ArrayList;
-
-public class Queue<T> /* implements QueueInterface<T> */ {
+public class Queue<T> implements QueueInterface<T>{
 	private int front;
 	private int rear;
 	private int numOfItems;
@@ -29,7 +27,7 @@ public class Queue<T> /* implements QueueInterface<T> */ {
 		items = (T[]) new Object[this.maxSize];
 
 		// items=new ArrayList<T>(this.maxSize);
-		this.front = 0;
+		this.front = -1;
 		this.rear = -1;
 		this.numOfItems = 0;
 	}
@@ -37,7 +35,7 @@ public class Queue<T> /* implements QueueInterface<T> */ {
 	/**
 	 * Returns a string representation of this queue.
 	 *
-	 * @return the sequence of items in FIFO order, separated by spaces
+	 * @return the sequence of items in FIFO order, separated by spaces.
 	 */
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -49,53 +47,43 @@ public class Queue<T> /* implements QueueInterface<T> */ {
 	/**
 	 * Returns the number of items in this queue.
 	 *
-	 * @return the number of items in this queue
+	 * @return the number of items in this queue.
 	 */
-	public int length() {
+	@Override
+	public int getNumberOfItems() {
 		return this.numOfItems;
 	}
 
 	/**
-	 * Returns the number of items in this queue.
-	 *
-	 * @return the number of items in this queue
-	 */
-	public int size() {
-		return this.numOfItems;
-	}
-
-	/**
-	 * Add the item to the queue.
-	 * @throws Exception 
-	 */
-	// @Override
+     * Add the item to the queue.
+     * @throws Exception
+	 *             if this queue is full.
+     */
+	@Override
 	public void enqueue(T item) throws Exception {
 		// Check for queue overflow
-		if (this.rear == (this.maxSize - 1)){
-			if(this.front > 0 ) // it means one or more item(s) has been deleted and there is space in front
-				this.rear = -1;
-			else
-				throw new Exception("Queue is full");
-		}
+		if (isFull())
+			throw new Exception("Queue is full");
+		
 		this.items[++this.rear] = item;
-		// TODO check and handle the ever increasing numOfItems
 		this.numOfItems++;
 	}
 
 	/**
 	 * Removes and returns the item on this queue that was least recently added.
 	 *
-	 * @return the item on this queue that was least recently added
+	 * @return the item on this queue that was least recently added.
 	 * @throws Exception
-	 *             if this queue is empty
+	 *             if this queue is empty.
 	 */
-	// @Override
+	@Override
 	public T dequeue() throws Exception {
 		if (isEmpty())
 			throw new Exception("Queue underflow");
-		T itemDeleted = this.items[this.front++];
-		if (this.front == this.maxSize)
-			this.front = 0;
+		
+		T itemDeleted = this.items[++this.front];
+		if (this.front == (this.maxSize -1))
+			this.front = -1;
 		this.numOfItems--;
 		return itemDeleted;
 	}
@@ -103,11 +91,11 @@ public class Queue<T> /* implements QueueInterface<T> */ {
 	/**
 	 * Returns the item least recently added to this queue.
 	 *
-	 * @return the item least recently added to this queue
+	 * @return the item least recently added to this queue.
 	 * @throws Exception
-	 *             if this queue is empty
+	 *             if this queue is empty.
 	 */
-	// @Override
+	@Override
 	public T peek() throws Exception {
 		if (isEmpty())
 			throw new Exception("Queue underflow");
@@ -117,21 +105,30 @@ public class Queue<T> /* implements QueueInterface<T> */ {
 	/**
 	 * Returns true if this queue is empty.
 	 *
-	 * @return {@code true} if this queue is empty; {@code false} otherwise
+	 * @return {@code true} if this queue is empty; {@code false} otherwise.
 	 */
-	// @Override
+	@Override
 	public boolean isEmpty() {
-		return (this.numOfItems == 0);
+		// For Circular Queue
+		//return (this.numOfItems == 0);
+		
+		if(this.rear == this.front){
+			this.rear = this.front = -1;
+			return true;
+		}
+		return false;
 	}
 
 	/**
 	 * Returns true if this queue is full.
 	 *
-	 * @return {@code true} if this queue is full; {@code false} otherwise
+	 * @return {@code true} if this queue is full; {@code false} otherwise.
 	 */
-	// @Override
+	@Override
 	public boolean isFull() {
-		return (this.numOfItems == this.maxSize);
+		//return (this.numOfItems == this.maxSize);
+		
+		return (this.rear == (this.maxSize -1) ? true: false);
 	}
 
 	// @Override
