@@ -22,12 +22,12 @@ public class Stack<T> {
 	 * 
 	 * @param item
 	 *            element to be pushed.
-	 * @throws Exception
+	 * @throws StackFullException
 	 *             when Stack is full.
 	 */
-	public void push(T item) throws Exception {
+	public void push(T item) throws StackFullException {
 		if (this.tos == (this.maxSize - 1))
-			throw new Exception("Stack is full.");
+			throw new StackFullException("Stack is full.");
 		else {
 			this.stack[++this.tos] = item;
 			this.numOfItems++;
@@ -38,12 +38,12 @@ public class Stack<T> {
 	 * Pop an item from the stack.
 	 * 
 	 * @return Returns the item present at top of the Stack.
-	 * @throws Exception
+	 * @throws StackEmptyException
 	 *             when Stack is empty.
 	 */
-	public T pop() throws Exception {
+	public T pop() throws StackEmptyException {
 		if (this.tos < 0)
-			throw new Exception("Stack underflow.");
+			throw new StackEmptyException("Stack underflow.");
 		else {
 			this.numOfItems--;
 			return this.stack[this.tos--];
@@ -54,12 +54,12 @@ public class Stack<T> {
 	 * See the item on top of the stack. Just returns the item, does not changes Stack pointer 
 	 * 
 	 * @return Returns the item present at top of the Stack.
-	 * @throws Exception
+	 * @throws StackEmptyException
 	 *             when Stack is empty.
 	 */
-	public T peek() throws Exception {
+	public T peek() throws StackEmptyException{
 		if (this.tos < 0)
-			throw new Exception("Stack underflow.");
+			throw new StackEmptyException("Stack underflow.");
 		else {
 			return this.stack[this.tos];
 		}
