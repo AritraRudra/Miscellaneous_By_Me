@@ -1,4 +1,4 @@
-package binarysarchtrees;
+package binarysearchtrees;
 /**
  * Utility class for BST.
  * Difference between binary tree amd BST => http://stackoverflow.com/questions/6380231/difference-between-binary-tree-and-binary-search-tree

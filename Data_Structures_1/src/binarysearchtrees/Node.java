@@ -1,4 +1,4 @@
-package binarysarchtrees;
+package binarysearchtrees;
 
 /**
  * Class for a binary tree node

@@ -1,4 +1,4 @@
-package binarysarchtrees;
+package binarysearchtrees;
 
 import java.util.Stack;
 import java.util.Iterator;
