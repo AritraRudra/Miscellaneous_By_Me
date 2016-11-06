@@ -53,7 +53,7 @@ public class BSTUtilityClass<T> {
 	 * @param node
 	 *            - The root node to traverse from.
 	 */
-	void printPreOrder(Node<T> node) {
+	public void printPreOrder(Node<T> node) {
 		if (node == null) {
 			return;
 		}
@@ -68,7 +68,7 @@ public class BSTUtilityClass<T> {
 	 * @param node
 	 *            - The root node to traverse from.
 	 */
-	void printInOrder(Node<T> node) {
+	public void printInOrder(Node<T> node) {
 		if (node == null) {
 			return;
 		}
@@ -84,7 +84,7 @@ public class BSTUtilityClass<T> {
 	 * @param node
 	 *            - The root node to traverse from.
 	 */
-	void printPostOrder(Node<T> node) {
+	public void printPostOrder(Node<T> node) {
 		if (node == null) {
 			return;
 		}
