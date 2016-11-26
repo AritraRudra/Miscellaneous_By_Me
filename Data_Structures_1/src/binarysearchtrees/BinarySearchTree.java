@@ -27,12 +27,12 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
 	 * @param comp
 	 *            - The specified comparator.
 	 */
-	public BinarySearchTree(Comparator<T> comp) {
+	public BinarySearchTree(final Comparator<T> comp) {
 		this.root = null;
 		this.comparator = comp;
 	}
 
-	private int compare(T x, T y) {
+	private int compare(final T x, final T y) {
 		// http://stackoverflow.com/questions/20052155/check-if-an-object-is-of-the-same-class-as-this
 		// http://stackoverflow.com/a/20052297/1679643
 		if(!(x.getClass() == y.getClass())){
@@ -71,11 +71,11 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
 	 * @param data
 	 *            -The data to insert.
 	 */
-	public void insert(T data) {
+	public void insert(final T data) {
 		this.root = this.insert(this.root, data);
 	}
 
-	private Node<T> insert(Node<T> node, T dataToInsert) {
+	private Node<T> insert(final Node<T> node, final T dataToInsert) {
 		if (node == null)
 			return new Node<T>(dataToInsert);
 
@@ -101,11 +101,11 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
 	 * @return {@code True} if the data is present in the tree, {@code False}
 	 *         otherwise.
 	 */
-	public boolean search(T dataToSearch) {
+	public boolean search(final T dataToSearch) {
 		return this.search(this.root, dataToSearch);
 	}
 
-	private boolean search(Node<T> node, T dataToSearch) {
+	private boolean search(final Node<T> node, final T dataToSearch) {
 		if (node == null)
 			return false;
 		else if (this.compare(dataToSearch, node.data) == 0)
@@ -126,7 +126,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
 	 * 
 	 * @param dataToDelete
 	 */
-	public boolean delete(T dataToDelete) {
+	public boolean delete(final T dataToDelete) {
 		if(this.root == null)
 			throw new NullPointerException("Tree is not yet initialized ( root is null ).");
 		
@@ -195,7 +195,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
 		return true;
 	}
 	
-	private Node<T> getSuccessorToDelete(Node<T> nodeToDelete){
+	private Node<T> getSuccessorToDelete(final Node<T> nodeToDelete){
 		Node<T> successsor =null;
 		Node<T> successsorParent =null;
 		Node<T> current = nodeToDelete.rightChild;
@@ -227,7 +227,7 @@ public class BinarySearchTree<T extends Comparable<T>> implements Iterable<T> {
 	*/
 	
 	@SuppressWarnings("unused")
-	private Node<T> delete(Node<T> node, T dataToDelete) {
+	private Node<T> delete(final Node<T> node, final T dataToDelete) {
 		if (node == null)
 			throw new NullPointerException("Tree is not yet initialized ( root is null ).");
 		else if (this.compare(dataToDelete, node.data) < 0)
