@@ -2,7 +2,7 @@ package sorting;
 
 import java.util.Comparator;
 
-public class SortingUtil {
+public class SortingUtils {
 
 	/**
 	 * Sort an array in the specified order using bubble sort technique.<br>
