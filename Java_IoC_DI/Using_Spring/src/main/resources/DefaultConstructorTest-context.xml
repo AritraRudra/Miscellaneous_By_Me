@@ -7,5 +7,5 @@
 
 	<!-- When the container instantiates the message bean, it is equivalent 
 		to initializing an object in your code with 'new DefaultMessage()'. -->
-	<bean id="messageDefaultConstructorInjection" class="default_constructor_injection.DefaultConstructorInjection" />
+	<bean id="ID_DefaultConstructorInjection" class="default_constructor_injection.DefaultConstructorInjection" />
 </beans>

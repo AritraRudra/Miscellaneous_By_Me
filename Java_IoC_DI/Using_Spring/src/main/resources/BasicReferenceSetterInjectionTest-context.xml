@@ -8,7 +8,7 @@
 		<constructor-arg value="Basic XML REF Setter Injection Test Using Spring." />
 	</bean>
 
-	<bean id="message" class="setter_injection.BasicSetterInjection">
+	<bean id="ID_BasicSetterInjectionXMLReference" class="setter_injection.BasicSetterInjection">
 		<property name="message" ref="stringMessage" />
 	</bean>
 

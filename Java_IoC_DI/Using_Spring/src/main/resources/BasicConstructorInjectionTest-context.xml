@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="message"
+	<bean id="ID_BasicConstructorInjection"
 		class="parameterized_constructor_injection.BasicConstructorInjection">
 		<constructor-arg value="Basic Constructor Injection Test Uusing Spring." />
 	</bean>

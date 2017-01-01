@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="message" class="setter_injection.BasicSetterInjection">
+	<bean id="ID_BasicSetterInjection" class="setter_injection.BasicSetterInjection">
 		<property name="message" value="Basic Setter Injection Test Using Spring." />
 	</bean>
 
