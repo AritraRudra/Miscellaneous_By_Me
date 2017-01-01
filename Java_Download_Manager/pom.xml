@@ -77,14 +77,14 @@
 		<!-- http://maven.apache.org/plugins/maven-resources-plugin/examples/resource-directory.html -->
 		<!-- http://stackoverflow.com/questions/5132389/if-using-maven-usually-you-put-log4j-properties-under-java-or-resources -->
 		<resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <targetPath>${project.build.directory}</targetPath>
-            <includes>
-                <include>logback.xml</include>
-            </includes>
-        </resource>
-    </resources>
+	        <resource>
+	            <directory>src/main/resources</directory>
+	            <!-- <targetPath>${project.build.directory}</targetPath> -->
+	            <includes>
+	                <include>logback.xml</include>
+	            </includes>
+	        </resource>
+    	</resources>
 
 		<plugins>
 			<!-- Tell maven to compile using Java 8 -->
