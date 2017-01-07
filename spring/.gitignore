@@ -1,0 +1,9 @@
+# from http://stackoverflow.com/questions/987142/make-gitignore-ignore-everything-except-a-few-files
+
+# Blacklist files/folders in same directory as the .gitignore file
+/*
+# except these two files
+!.gitignore
+!Maven_Generate_Projects.txt
+# and this folder
+!spring_io_docs_Spring-MVC-step-by-step/

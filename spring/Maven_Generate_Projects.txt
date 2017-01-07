@@ -1,0 +1,1 @@
+mvn archetype:generate -DgroupId=com.spring.mvc -DartifactId=spring_io_docs_Spring-MVC-step-by-step -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=true
