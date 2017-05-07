@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class ConsoleProgressBarDemo2 {
 
 	public static void main(String[] args) {
-		long total = 150;	// progress bar width in chars
+		long total = 235;	// progress bar width in chars
 		long startTime = System.currentTimeMillis();
 
 		for (int i = 1; i <= total; i = i + 3) {
