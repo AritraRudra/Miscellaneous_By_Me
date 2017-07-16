@@ -8,6 +8,9 @@ import java.util.Iterator;
 
 import javax.naming.NamingException;
 
+import com.pojo.EmployerEnum;
+import com.pojo.GenderEnum;
+
 public class QueryHelper {
 
 	/**
@@ -57,7 +60,7 @@ public class QueryHelper {
 	 * @throws NamingException
 	 * @throws SQLException
 	 */
-	protected static void setParameter(final PreparedStatement pst, final int index, final Object value)
+	static void setParameter(final PreparedStatement pst, final int index, final Object value)
 			throws NamingException, SQLException {
 		//LOGGER.finest(index + ": " + value);
 
@@ -69,11 +72,17 @@ public class QueryHelper {
 			pst.setInt(index, ((Integer) value).intValue());
 		} else if (value instanceof Long) {
 			pst.setLong(index, (Long) value);
+		} else if (value instanceof Double) {
+			pst.setDouble(index, ((Double) value).doubleValue());
 		} else if (value instanceof Date) {
 			pst.setTimestamp(index, new java.sql.Timestamp(((Date) value).getTime()));
 		}/* else if (value instanceof ByteArray) {
 			pst.setBytes(index, ((ByteArray) value).getBytes());
 		}*/
+		// for Enums
+		else if (value instanceof GenderEnum || value instanceof EmployerEnum) {
+			pst.setString(index, value.toString());
+		}
 		else {
 			throw new IllegalArgumentException("Wrong data type: " + value.getClass());
 		}

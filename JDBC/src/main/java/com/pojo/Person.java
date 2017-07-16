@@ -2,14 +2,42 @@ package com.pojo;
 
 public class Person {
 	/** Identifier for the person, can be Social Sec No., PAN, Aadhar etc. */
-	private long id;
+	protected long id;
 	/** Name of the person. */
-	private String name;
+	protected String name;
 	/** Age of the person.*/
-	private int age;
+	protected int age;
 	/** Gender of the person. */
-	private GenderEnum gender;
+	protected GenderEnum gender;
 	
+	/**
+	 * Use this constructor everywhere except when populating data from database.
+	 * @param name
+	 * @param age
+	 * @param gender
+	 */
+	public Person(final String name, final int age, final GenderEnum gender) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+	}
+
+	/**
+	 * Use only when populating data from database.
+	 * @param id
+	 * @param name
+	 * @param age
+	 * @param gender
+	 */
+	public Person(final long id, final String name, final int age, final GenderEnum gender) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+	}
+
 	public long getId() {
 		return this.id;
 	}
@@ -33,5 +61,10 @@ public class Person {
 	}
 	public void setGender(GenderEnum gender) {
 		this.gender = gender;
+	}
+	
+	@Override
+	public String toString(){
+		return (this.id+" "+this.name+" "+this.age+" "+this.gender);
 	}
 }

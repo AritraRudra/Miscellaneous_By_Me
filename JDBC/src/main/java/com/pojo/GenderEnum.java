@@ -10,6 +10,11 @@ public enum GenderEnum {
 	private GenderEnum(final String gender){
 		this.gender = gender;
 	}
+	/*
+	public String getGender(){
+		return this.gender;
+	}
+	*/
 
 	/* (non-Javadoc)
 	 * @see java.lang.Enum#toString()
