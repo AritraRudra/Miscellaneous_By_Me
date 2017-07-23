@@ -9,6 +9,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<mysql-connector.version>6.0.6</mysql-connector.version>
 		<junit.version>4.12</junit.version>
+		<mockito-core.version>2.8.47</mockito-core.version>
 		<slf4j.version>1.7.21</slf4j.version>
 		<logback.version>1.1.7</logback.version>
 	</properties>
@@ -30,6 +31,17 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- JUnit dependencies == END -->
+		
+		<!-- Mockito-core dependencies == START -->
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito-core.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Mockito-core dependencies == END -->
+				
 
 		<!-- Log4J dependencies, now we are using Logback -->
 		<!-- 

@@ -36,7 +36,7 @@ public class SQLAgent {
 	private final String className;// = this.getClass().toString();// = SQLAgent.class.getName();
 	// java util logging.
 	private static final Logger logger = Logger.getLogger(SQLAgent.class.getPackage().getName());
-	// slff4j
+	// slf4j
 	//protected static final Logger logger = LoggerFactory.getLogger(SQLAgent.class);
 
 	/**
@@ -88,6 +88,7 @@ public class SQLAgent {
 	private SQLAgent() {
 		className = this.getClass().toString();
 		logger.entering(className, "SQLAgent");
+		//logger.trace("Entering {} {}",className, "SQLAgent");
 		/*
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -96,6 +97,7 @@ public class SQLAgent {
 		}
 		*/
 		logger.exiting(className, "SQLAgent");
+		//logger.trace("Exiting {} {}",className, "SQLAgent");
 	}
 
 	public static SQLAgent getInstance() {
@@ -121,6 +123,7 @@ public class SQLAgent {
 			return preparedStatement;
 		} catch (final SQLException sqlEx) {
 			logger.log(Level.FINEST, sqlEx.getMessage(), sqlEx);
+			//logger.error(sqlEx.getMessage());
 			sqlEx.printStackTrace();
 			throw sqlEx;
 		}
