@@ -55,6 +55,16 @@ public class EmployeeDAO {
 		final ResultSet rs = sqlAgent.dbSelectQuery(queryString, id);
 		return getEmployeesFromResultSet(rs);
 	}
+	
+	public int removeEmployeeByID(final long id) throws NamingException, SQLException{
+		final String deleteString = "DELETE FROM "+TABLE_EMPLOYEE+" WHERE "+COLUMN_ID +"=?";
+		return (sqlAgent.dbDelete(deleteString, id));
+	}
+	
+	public int removeEmployeesByName(final String name) throws NamingException, SQLException{
+		final String deleteString = "DELETE FROM "+TABLE_EMPLOYEE+" WHERE "+COLUMN_NAME +"=?";
+		return (sqlAgent.dbDelete(deleteString, name));
+	}
 
 	// Below ones are utility methods.
 	private static Object[] getParametersArrayFromSingleEmployee(final Employee emp){
@@ -85,6 +95,7 @@ public class EmployeeDAO {
 		    );
 		return empFromResultSet;
 	}
+
 	private static Employee[] getEmployeesFromResultSet(final ResultSet rs) throws SQLException {
 		final ArrayList<Employee> empArrList = new ArrayList<Employee>(); 
 		while(rs.next()){
