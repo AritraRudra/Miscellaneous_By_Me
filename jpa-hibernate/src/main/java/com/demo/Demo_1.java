@@ -21,7 +21,29 @@ public class Demo_1 {
 		//samplePersist();
 		
 		StudentPersistenceService studentDAO = new StudentPersistenceService();
+		showAllStudents(studentDAO);
+		System.out.println();
+		showStudentsByAge(studentDAO, 9);
+		System.out.println();
+		showStudentsByCountry(studentDAO, "Country");
+	}
+
+	private static void showAllStudents(final StudentPersistenceService studentDAO){
 		List<Student> studentsList = studentDAO.getAllStudents();
+		for (Student student : studentsList) {
+			System.out.println(student);
+		}
+	}
+	
+	private static void showStudentsByAge(final StudentPersistenceService studentDAO, final int age){
+		List<Student> studentsList = studentDAO.getStudentsByAge(age);
+		for (Student student : studentsList) {
+			System.out.println(student);
+		}
+	}
+	
+	private static void showStudentsByCountry(StudentPersistenceService studentDAO, String country) {
+		List<Student> studentsList = studentDAO.getStudentsByCountryUsingSQL(country);
 		for (Student student : studentsList) {
 			System.out.println(student);
 		}
