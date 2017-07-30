@@ -10,6 +10,7 @@
 		<mysql-connector.version>6.0.6</mysql-connector.version>
 		<junit.version>4.12</junit.version>
 		<mockito-core.version>2.8.47</mockito-core.version>
+		<!-- <powermock.version>1.7.0RC4</powermock.version> -->
 		<slf4j.version>1.7.21</slf4j.version>
 		<logback.version>1.1.7</logback.version>
 	</properties>
@@ -41,6 +42,30 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- Mockito-core dependencies == END -->
+		
+		<!-- Powermock dependencies == START -->
+		<!-- https://mvnrepository.com/artifact/org.powermock/powermock-module-junit4 -->
+		<!--
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>${powermock.version}</version>
+			<scope>test</scope>
+			<exclusions>
+		        <exclusion>
+		            <groupId>org.mockito</groupId>
+		            <artifactId>mockito-core</artifactId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+		-->
+		<!-- Powermock dependencies == END -->
 				
 
 		<!-- Log4J dependencies, now we are using Logback -->
@@ -76,23 +101,6 @@
 
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
-		<testSourceDirectory>test</testSourceDirectory>
-		<!-- However, all your resources may not be in src/main/resources. Thus, 
-			you'd have to specify those directories by adding the following to your POM. 
-			We can even add multiple different locations also. -->
-		<!-- http://maven.apache.org/plugins/maven-resources-plugin/examples/resource-directory.html -->
-		<!-- http://stackoverflow.com/questions/5132389/if-using-maven-usually-you-put-log4j-properties-under-java-or-resources -->
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<!-- <targetPath>${project.build.directory}</targetPath> -->
-				<includes>
-					<include>logback.xml</include>
-				</includes>
-			</resource>
-		</resources>
-
 		<plugins>
 			<!-- Tell maven to compile using Java 8 -->
 			<plugin>

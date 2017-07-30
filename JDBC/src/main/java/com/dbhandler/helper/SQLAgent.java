@@ -217,19 +217,19 @@ public class SQLAgent {
 	 * result.
 	 *
 	 * @param selectString
-	 *            An SQL string containing "?" as placeholders for parameters.
+	 *            - An SQL string containing "?" as placeholders for parameters.
 	 * @param value
-	 * 			  The value for "? placeholder.		
+	 * 			  - The value for "? placeholder.		
 	 * @return The result of the query.
 	 * @throws NamingException
 	 * @throws SQLException
 	 */
-	public ResultSet dbSelectQuery(final String selectString, final Object param) throws NamingException, SQLException {
+	public ResultSet dbSelectQuery(final String selectString, final Object value) throws NamingException, SQLException {
 		final String methodName = "dbSelect";
 		logger.entering(className, methodName);
 		final PreparedStatement preparedStatement = getPreparedStatement(selectString);
 		try {
-			QueryHelper.setParameter(preparedStatement, 1, param);
+			QueryHelper.setParameter(preparedStatement, 1, value);
 			// do not use this. this is to be used with Statement, not PreparedStatement, Again I did blunder copy-pasting :P 
 			// see https://stackoverflow.com/questions/17323772/jdbc-sql-exception-query-executes-correctly-on-the-mysql-prompt-but-gives-error
 			//return preparedStatement.executeQuery(selectString);
@@ -318,6 +318,30 @@ public class SQLAgent {
 		} finally {
 			closeSQLStatement(pst);
 			logger.exiting(className, "dbUpdate");
+		}
+	}
+	
+	/**
+	 * @param sqlDelete
+	 *            - An SQL DELETE statement.
+	 * @param value
+	 * 			  - The value for "? placeholder.		
+	 * @return The number of deleted rows.
+	 * @throws SQLException
+	 *             - if the deletion failed.
+	 */
+	public int dbDelete(final String sqlDelete, final Object value) throws NamingException, SQLException {
+		final String methodName = "dbDelete";
+		logger.entering(className, methodName);
+		final PreparedStatement preparedStatement = getPreparedStatement(sqlDelete);
+		try {
+			QueryHelper.setParameter(preparedStatement, 1, value);
+			return preparedStatement.executeUpdate();
+		} catch (final SQLException e) {
+			closeSQLStatement(preparedStatement);
+			throw e;
+		} finally {
+			logger.exiting(className, methodName);
 		}
 	}
 
