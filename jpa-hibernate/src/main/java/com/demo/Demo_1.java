@@ -25,7 +25,20 @@ public class Demo_1 {
 		System.out.println();
 		showStudentsByAge(studentDAO, 9);
 		System.out.println();
+		showStudentsWithAgeLessThen(studentDAO, 11);
+		System.out.println();
+		showStudentsWithAgeMoreThen(studentDAO, 7);
+		System.out.println();
 		showStudentsByCountry(studentDAO, "Country");
+		System.out.println();
+		//showStudentsByCountryUsingCriteriaAPI(studentDAO, "Country");
+		
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		studentDAO.closeStudentPersistenceService();
 	}
 
 	private static void showAllStudents(final StudentPersistenceService studentDAO){
@@ -42,8 +55,29 @@ public class Demo_1 {
 		}
 	}
 	
+	private static void showStudentsWithAgeMoreThen(final StudentPersistenceService studentDAO, final int age){
+		List<Student> studentsList = studentDAO.getStudentsWithAgeMoreThen(age);
+		for (Student student : studentsList) {
+			System.out.println(student);
+		}
+	}
+	
+	private static void showStudentsWithAgeLessThen(final StudentPersistenceService studentDAO, final int age){
+		List<Student> studentsList = studentDAO.getStudentsWithAgeLessThen(age);
+		for (Student student : studentsList) {
+			System.out.println(student);
+		}
+	}
+	
 	private static void showStudentsByCountry(StudentPersistenceService studentDAO, String country) {
 		List<Student> studentsList = studentDAO.getStudentsByCountryUsingSQL(country);
+		for (Student student : studentsList) {
+			System.out.println(student);
+		}
+	}
+	
+	private static void showStudentsByCountryUsingCriteriaAPI(StudentPersistenceService studentDAO, String country) {
+		List<Student> studentsList = studentDAO.getStudentsByCountryUsingCriteria(country);
 		for (Student student : studentsList) {
 			System.out.println(student);
 		}

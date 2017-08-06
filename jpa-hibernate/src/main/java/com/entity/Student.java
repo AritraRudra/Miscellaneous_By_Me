@@ -50,7 +50,11 @@ import javax.persistence.Transient;
 	@NamedQuery(name = "Student.findByLastName",
 			query = "SELECT s FROM Student s WHERE s.lastName = :lastName"), // same rule as above is applicable here also
 	@NamedQuery(name = "Student.getAllStudents",
-			query = "SELECT s FROM Student s")
+			query = "SELECT s FROM Student s"),
+	@NamedQuery(name = "Student.getAllStudentsWithAgeMoreThen",
+			query = "SELECT s FROM Student s WHERE s.age > :age"),
+	@NamedQuery(name = "Student.getAllStudentsWithAgeLessThen",
+			query = "SELECT s FROM Student s WHERE s.age < :age")
 	})
 public class Student implements Serializable{
 	// Non-persistent fields must be marked as transient.

@@ -18,6 +18,10 @@ import com.entity.Student;
 
 public final class StudentPersistenceService extends AbstractPersistenceService{
 	
+	public void closeStudentPersistenceService(){
+		super.close();
+	}
+	
 	public Student getStudentByID(final int id){
 		try {
 			return (Student) super.getEntityManager().createNamedQuery("Student.findByID").setParameter("id", id)
@@ -63,6 +67,40 @@ public final class StudentPersistenceService extends AbstractPersistenceService{
 		return resultlist;
 	}
 	
+	public List<Student> getStudentsWithAgeMoreThen(final int age){
+		try {
+			return (List<Student>) AbstractPersistenceService.getEntityManager()
+					.createNamedQuery("Student.getAllStudentsWithAgeMoreThen")
+					.setParameter("age", age)
+					.getResultList();
+		} catch (final NoResultException nrfEx) {
+			return null;
+		}
+		/*
+		finally{
+			// do we need to open and close a transaction for read only purpose ??, guess not, atleast in JSE
+			//super.close();
+		}
+		*/
+	}
+
+	public List<Student> getStudentsWithAgeLessThen(final int age){
+		try {
+			return (List<Student>) AbstractPersistenceService.getEntityManager()
+					.createNamedQuery("Student.getAllStudentsWithAgeLessThen")
+					.setParameter("age", age)
+					.getResultList();
+		} catch (final NoResultException nrfEx) {
+			return null;
+		}
+		/*
+		finally{
+			// do we need to open and close a transaction for read only purpose ??, guess not, atleast in JSE
+			//super.close();
+		}
+		*/
+	}
+	
 	public List<Student> getStudentsByCountryUsingSQL(final String country){
 		// Actual MySQL query => SELECT * FROM hbnt_student s, hbnt_address a WHERE s.address_id=(SELECT a.id FROM hbnt_address a WHERE a.Country='Country'); 
 		final String sqlQuery = "SELECT s FROM Student s, Address a WHERE s.address=(SELECT a.id FROM Address a WHERE a.country='Country')";
@@ -72,26 +110,20 @@ public final class StudentPersistenceService extends AbstractPersistenceService{
 	}
 	
 	// TODO using Criteria API, guess we need join and/or metamodel in JPA2.0 ??
-	/*
+	
 	public List<Student> getStudentsByCountryUsingCriteria(final String country){
 		CriteriaBuilder criteriaBuilder = AbstractPersistenceService.getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Student> studentQuery = criteriaBuilder.createQuery(Student.class);
 
 		Root<Student> rootStudent = studentQuery.from(Student.class);
-		Join<Address> rootAddress = rootStudent.join("capital", JoinType.LEFT);
-		SetJoin<Student, Address> setJoin = root.join(root.get("address"));
-		Predicate p = criteriaBuilder.equal(setJoin.get(Addre), Status.DELIVERED)
-		        .negate();
+		Predicate predicate = criteriaBuilder.equal(rootStudent.join("address").get("Country"), country);
 	    studentQuery.where(predicate);
-		
-		CriteriaQuery<Student> selectStudentQuery = studentQuery.select(addressId);
-		selectStudentQuery.orderBy(criteriaBuilder.asc(studentRoot.get("age")));
 
-		TypedQuery<Student> query = AbstractPersistenceService.getEntityManager().createQuery(selectStudentQuery);
+		TypedQuery<Student> query = AbstractPersistenceService.getEntityManager().createQuery(studentQuery);
 		final List<Student> resultlist = (List<Student>)query.getResultList();
 		return resultlist;
 	}
-	*/
+	
 	
 	public List<Student> getAllStudents(){
 		try {
