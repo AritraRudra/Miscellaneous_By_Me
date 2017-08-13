@@ -3,10 +3,12 @@ package com.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -94,7 +96,9 @@ public class Student implements Serializable{
 	@Transient
 	private String transientData;
 	
-	@OneToOne
+	// https://stackoverflow.com/questions/19424179/jpa-saving-primary-and-foreign-key-together
+	// https://stackoverflow.com/questions/17283431/data-was-not-saved-object-references-an-unsaved-transient-instance-save-the-t
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private Address address;
 	
 	// Google for more => boolean/true-false converter, pre and post JPA 2.1
