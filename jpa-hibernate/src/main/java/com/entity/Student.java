@@ -1,6 +1,9 @@
 package com.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -12,8 +15,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -199,9 +202,12 @@ public class Student implements Serializable{
 	
 	@Override
 	public String toString(){
+		LocalDateTime localDob = this.dob.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+		DateTimeFormatter dateTimeFormatter =  DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss");
+		String formattedDob = localDob.format(dateTimeFormatter);
 		// https://dzone.com/articles/java-string-format-examples
-		return (String.format("ID : %d, Name : %s %s, Age : %d, DOB :%tc, Inst : %s, Address : %s", this.id,
-				this.firstName, this.lastName, this.age, this.dob, this.instituteName, this.address.toString()));
+		return (String.format("ID : %d, Name : %s %s, Age : %d, DOB : %s, Inst : %s, Address : %s", this.id,
+				this.firstName, this.lastName, this.age, formattedDob, this.instituteName, this.address.toString()));
 	}
 	
 }

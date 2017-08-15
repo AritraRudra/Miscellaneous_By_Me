@@ -17,6 +17,16 @@ public enum Gender{
 	public String getGender() {
 		return this.gender;
 	}
+	
+	/**
+	 * Get the gender corresponding to the supplied value.
+	 * 
+	 * @param value the value to get from.
+	 * @return {@link Gender}.
+	 */
+	public static Gender fromValue(final String value) throws Exception{
+		return valueOf(value);
+	}
 	 
 	/*
 	 * (non-Javadoc)

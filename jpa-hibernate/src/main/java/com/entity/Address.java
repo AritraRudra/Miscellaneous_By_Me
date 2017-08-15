@@ -73,14 +73,6 @@ public class Address  implements Serializable{
 	}
 
 	/**
-	 * @param id
-	 *            the id to set
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	/**
 	 * @return the street
 	 */
 	public String getStreet() {

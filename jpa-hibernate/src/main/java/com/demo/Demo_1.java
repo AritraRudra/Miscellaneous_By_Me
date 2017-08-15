@@ -33,6 +33,9 @@ public class Demo_1 {
 		System.out.println();
 		//showStudentsByCountryUsingCriteriaAPI(studentDAO, "Country");
 		
+		showStudentsByAge(studentDAO, 10);
+		System.out.println();
+		
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
