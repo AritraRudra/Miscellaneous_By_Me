@@ -28,9 +28,9 @@ public class Student {
 	@XmlTransient
 	private static final long serialVersionUID = 2718763948180888989L;
 
-	@XmlAttribute	// To make xml entry as <student id = "XX">	
-    @XmlJavaTypeAdapter(IDAdapter.class)		// for autogenetaion of ID => https://stackoverflow.com/questions/24180499/how-to-auto-increment-id-in-xml-using-jaxb
-	private Integer id = 0;
+	@XmlAttribute	// To make xml entry as <student id = "XX">		// https://stackoverflow.com/a/22471301/1679643 => int.class ???, it's from jdk 1.1 -> java.lang.Integer.TYPE javaDoc says "The Class instance representing the primitive type int."
+    @XmlJavaTypeAdapter(type=int.class, value=IDAdapter.class)		// for autogenetaion of ID => https://stackoverflow.com/questions/24180499/how-to-auto-increment-id-in-xml-using-jaxb and for "int.class"!! => https://stackoverflow.com/a/19793982/1679643
+	private int id = 0;
 	@XmlElement(name = "age", required = true, nillable = false)		// 1 counts of IllegalAnnotationExceptions	Class has two properties of the same name "age" because @XmlAccessorType is PROPERTY 
 	private int age;
 	// https://stackoverflow.com/a/19273820/1679643
