@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+<persistence version="2.0"
+        xmlns="http://java.sun.com/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+            http://java.sun.com/xml/ns/persistence
+            http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+            -->
+
+<persistence version="2.1"
+		xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+				http://xmlns.jcp.org/xml/ns/persistence
+				http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+
+	<persistence-unit name="student" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<!-- <provider>org.hibernate.ejb.HibernatePersistence</provider> -->
+		
+		<class>com.entity.Student</class>
+		<class>com.entity.Address</class>
+
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/random" />
+			<property name="javax.persistence.jdbc.user" value="admin" />
+			<property name="javax.persistence.jdbc.password" value="MyGroot" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<!-- 
+			<property name="eclipselink.logging.level" value="FINE" />
+			<property name="eclipselink.ddl-generation" value="create-tables" />
+ 			-->
+
+			<!--  provider specific properties -->
+			<property name="hibernate.default_schema" value="random"/>	<!--  is this line needed here or in orm.xml?? -->
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<!-- <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect/> -->
+			
+			<!-- create | create-drop | update | validate | none --> <!-- none ( none is not a valid value here )to handle jboss persistenceunit check -->
+			<!-- <property name="hibernate.hbm2ddl.auto" value="none" /> --> 
+			<property name="hibernate.logging.level" value="FINE" />
+
+			<!-- Configuring Connection Pool -->
+			<property name="hibernate.c3p0.min_size" value="5" />
+			<property name="hibernate.c3p0.max_size" value="20" />
+			<property name="hibernate.c3p0.timeout" value="500" />
+			<property name="hibernate.c3p0.max_statements" value="50" />
+			<property name="hibernate.c3p0.idle_test_period" value="2000" />
+		</properties>
+
+	</persistence-unit>
+</persistence>

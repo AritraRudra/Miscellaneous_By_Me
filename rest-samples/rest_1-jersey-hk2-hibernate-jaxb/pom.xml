@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>rest-samples</groupId>
+		<artifactId>rest-samples</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>rest_1-jersey-hk2-hibernate-jaxb</groupId>
+	<artifactId>rest_1-jersey-hk2-hibernate-jaxb</artifactId>
+	<packaging>war</packaging>
+	<name>Rest using JPA-Hibernate and JAXB</name>
+	<description>Rest using JPA-Hibernate and JAXB with HK2 injector</description>
+
+	<properties>
+		<mysql-connector.version>6.0.6</mysql-connector.version>
+		<persistence-api.version>1.0.2</persistence-api.version>
+		<hibernate-core.version>5.2.10.Final</hibernate-core.version>
+		<!-- deprecated <hibernate-entitymanager.version>5.2.10.Final</hibernate-entitymanager.version> -->		
+		<jersey-container-servlet.version>2.25</jersey-container-servlet.version>
+		<javaee-api.version>7.0</javaee-api.version>
+		<!--
+		<weld-servlet.version>2.4.4.Final</weld-servlet.version>
+		<weld-servlet-shaded.version>3.0.0.Final</weld-servlet-shaded.version>
+		-->
+		<org.eclipse.persistence.moxy.version>2.6.4</org.eclipse.persistence.moxy.version>
+		<jackson.version>2.9.0</jackson.version>
+	</properties>
+
+	<dependencies>
+		<!-- http://stackoverflow.com/questions/10842131/xml-comments-and http://stackoverflow.com/a/10842176/1679643 -->
+		<!-- JUnit dependencies == START -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- JUnit dependencies == END -->
+
+		<!-- Logback dependencies == START -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		<!-- Logback dependencies == END -->
+
+		<!-- SLF4J dependencies == START -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<!-- SLF4J dependencies == END -->
+
+		<!-- JAVA Persistance API , will use version 2.1 when it is release (if ever)-->
+		<!-- 
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>${persistence-api.version}</version>
+		</dependency>
+ 		-->
+
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-core</artifactId>
+		    <version>${hibernate-core.version}</version>
+		    <!-- To handle java.lang.ClassCastException: org.dom4j.DocumentFactory cannot be cast to org.dom4j.DocumentFactory
+		     	while deploying on WildFly 10.0, so we currencty using WildFly 9
+		     https://stackoverflow.com/a/35692287/1679643 and https://stackoverflow.com/a/39355014/1679643 -->
+		     <!-- <scope>provided</scope> -->
+		     <!-- 
+		     <exclusions>
+				<exclusion>
+					<groupId>dom4j</groupId>
+					<artifactId>dom4j</artifactId>
+				</exclusion>
+			</exclusions>
+			 -->
+		    <!--
+		    <exclusions>
+				<exclusion>
+					<groupId>org.hibernate.javax.persistence</groupId>
+					<artifactId>hibernate-jpa-2.1-api</artifactId>
+				</exclusion>
+			</exclusions>
+			-->
+		</dependency>
+			 
+		
+		<!-- For connection pooling -->
+		<!-- 
+	    <dependency>
+	      <groupId>org.hibernate</groupId>
+	      <artifactId>hibernate-c3p0</artifactId>
+	      <version>${hibernate.version}</version>
+	    </dependency>
+	     -->
+	    
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector.version}</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet -->
+		<dependency>
+		    <groupId>org.glassfish.jersey.containers</groupId>
+		    <artifactId>jersey-container-servlet</artifactId>
+		    <version>${jersey-container-servlet.version}</version>
+		</dependency>
+				
+		<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->
+		<!--
+		<dependency>
+		    <groupId>org.glassfish.jersey.core</groupId>
+		    <artifactId>jersey-server</artifactId>
+		    <version>${jersey-server.version}</version>
+		</dependency>
+		-->
+		<!-- https://mvnrepository.com/artifact/javax/javaee-api -->
+		<dependency>
+		    <groupId>javax</groupId>
+		    <artifactId>javaee-api</artifactId>
+		    <version>${javaee-api.version}</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<!--  For CDI in TOMCAT -->
+		<!-- https://stackoverflow.com/a/19003725/1679643 -->
+		<!-- https://mvnrepository.com/artifact/org.jboss.weld.servlet/weld-servlet -->
+		<!-- <dependency>
+		    <groupId>org.jboss.weld.servlet</groupId>
+		    <artifactId>weld-servlet</artifactId>
+		    <version>${weld-servlet.version}</version>
+		</dependency>
+		-->
+		<!-- https://mvnrepository.com/artifact/org.jboss.weld.servlet/weld-servlet-shaded -->
+		<!-- 
+		<dependency>
+		    <groupId>org.jboss.weld.servlet</groupId>
+		    <artifactId>weld-servlet-shaded</artifactId>
+		    <version>${weld-servlet-shaded.version}</version>
+		</dependency>
+		-->
+		
+		
+		<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.moxy -->
+		<dependency>
+		    <groupId>org.eclipse.persistence</groupId>
+		    <artifactId>org.eclipse.persistence.moxy</artifactId>
+		    <version>${org.eclipse.persistence.moxy.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-core</artifactId>
+		    <version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<!-- <sourceDirectory>src</sourceDirectory>  -->
+		<testSourceDirectory>test</testSourceDirectory>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<!-- <targetPath>${project.build.directory}</targetPath> -->
+				<includes>
+					<include>logback.xml</include>
+					<include>META-INF/persistence.xml</include>
+					<include>META-INF/context.xml</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.0</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+
+</project>

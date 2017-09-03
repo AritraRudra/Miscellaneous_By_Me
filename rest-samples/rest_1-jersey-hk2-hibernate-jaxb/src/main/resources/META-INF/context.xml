@@ -1,0 +1,8 @@
+<!--https://stackoverflow.com/questions/18995951/how-to-install-and-use-cdi-on-tomcat -->
+<!-- https://www.beyondjava.net/blog/running-cdi-on-a-simple-tomcat/ -->
+<Context>
+	<Resource name="BeanManager"
+		auth="Container"
+		type="javax.enterprise.inject.spi.BeanManager"
+		factory="org.jboss.weld.resources.ManagerObjectFactory"/>
+</Context>

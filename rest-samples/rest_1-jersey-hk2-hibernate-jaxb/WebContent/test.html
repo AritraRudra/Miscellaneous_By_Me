@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Welcome</title>
+<script type="text/javascript" src="test.js"></script>
+</head>
+
+<body>
+
+	<form id="add_student" name="add_student" class="appnitro" method="post" action="rest/student/addstudent" onsubmit="" >
+			<div class="form_description">
+				<h2>Add Student</h2>
+				<p>Add Student details here.</p>
+			</div>
+			<ul>
+					
+				<li id="li_3"><label class="description" for="name">Name
+				</label> <span> <input id="firstname" name="firstname"
+						class="element text" maxlength="30" size="8" value="" /> <label>First</label>
+				</span> <span> <input id="lastname" name="lastname"
+						class="element text" maxlength="50" size="14" value="" required />
+						<label>Last</label>
+				</span>
+				<li id="li_4"><label class="description" for="age">Age
+				</label> <span> <input id="age" name="age" type="number"
+						placeholder="10" min="1" max="100" required>
+				</span></li>
+				<li id="li_5"><label class="description" for="gender">Gender
+				</label> <span> <input type="radio" name="gender" value="MALE"
+						checked required> Male <input type="radio" name="gender" value="FEMALE"> Female 
+						<input type="radio" name="gender" value="other" disabled> Other
+				</span></li>
+
+				<li id="li_6"><label class="description" for="institutename">Institute
+				</label> <span> <input id="institutename" name="institutename" type="text"
+						placeholder="" required>
+				</span></li>
+
+				<li class="buttons"><input type="hidden" name="form_id"
+					value="45307" /> <input id="saveForm" class="button_text"
+					type="submit" name="submit" value="Submit" /> <input type="reset">
+				</li>
+			</ul>
+		</form>
+    
+    <script>
+		document.getElementById("add_student").addEventListener('submit', submitStudent);
+		
+
+		function submitStudent(event) {
+			// stop the regular form submission
+			event.preventDefault();
+		  console.log("Disabled default");
+		  alert("Calling ...");
+		  var form = document.getElementById("add_student").elements;
+		  //var form = document.getElementsByName("add_student").elements;
+		  console.log("Form ", form);
+		  console.log("Form method", form.method);
+		  alert("Got form ...");
+		  addStudentAndShowResult(form);
+		  console.log("Came back to submitStudent()");
+		}
+	</script>
+</body>
+</html>
