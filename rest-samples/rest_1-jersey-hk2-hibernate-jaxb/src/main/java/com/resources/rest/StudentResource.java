@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -110,6 +111,11 @@ public class StudentResource {
 		//return Response.ok().entity(student).build();
 		try {
 			return Response.status(201).entity(prepereResponseAsJSON(student, null)).build();
+			/*
+			// when direct json MessageBodyWriter is setup properly.
+			prepereResponseAsJSON(student, null);
+			return Response.status(201).entity(student).build();
+			*/
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,7 +147,7 @@ public class StudentResource {
 
 	
 	@POST
-	@Path("addstudent1")
+	@Path("addstudent_form_url_encoded_multivaluedmap")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	// check what entries are present in formparams 
@@ -169,7 +175,7 @@ public class StudentResource {
 	}
 			
 	@POST
-	@Path("addstudent")
+	@Path("addstudent_form_url_encoded")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addStudent1(
@@ -180,8 +186,6 @@ public class StudentResource {
 			@FormParam("city") String paramCity, @FormParam("country") String paramCountry) {
 		// @Context HttpServletResponse servletResponse) throws IOException {
 		LOGGER.info("\n\n"+paramAge +" "+paramDob+" "+paramGender+ " "+paramCountry);
-		
-		
 		int age = 0;
 		Date dob;
 		Gender gender;
@@ -254,7 +258,7 @@ public class StudentResource {
 		LOGGER.info("Entering {}.addStudent for JSON", className);
 		try {
 			studentService.addStudent(student);
-			LOGGER.debug("Added Student details along with address.");
+			LOGGER.debug("Successfully added Student details along with address.");
 			// servletResponse.sendRedirect("./success/");
 			String successMessage = "Student details successfully added.";
 			return Response.status(201).entity(prepereResponseAsJSON(student, successMessage)).build();
@@ -263,6 +267,48 @@ public class StudentResource {
 			return Response.serverError().entity(e.getMessage()).build();
 		}
 	}
+
+
+
+	// TODO HTTP PUT method
+	
+
+
+	@DELETE
+	@Path("{studentid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteStudentByID(@PathParam("studentid") String studentIDStr) {
+		LOGGER.info("In deleteStudentByID PathParam " + studentIDStr);
+		String message = null;
+		int studentID = -1;
+		try {
+			try {
+				studentID = Integer.parseInt(studentIDStr);
+			} catch (final NumberFormatException nfEx) {
+				LOGGER.error("NumberFormatException occurred : {}", nfEx.getMessage());
+				message = "Invalid input for Student ID, it should be a positive integer.";
+				return Response.status(406).entity(prepereResponseAsJSON(null, message)).build();
+			}
+			if (studentID > 0) {
+				final boolean studentDeleted = studentService.deleteStudentByID(studentID);
+				if (studentDeleted) {
+					message = "Student with ID " + studentID + " successfully deleted.";
+					return Response.status(200).entity(prepereResponseAsJSON(null, message)).build();
+				} else {
+					message = "No Student with ID " + studentID + " found.";
+					return Response.status(200).entity(prepereResponseAsJSON(null, message)).build();
+				}
+			}else{
+				LOGGER.error("Invalid Student ID : {}", studentID);
+				message = "Invalid input for Student ID, ot should be apositive integer.";
+				return Response.status(406).entity(prepereResponseAsJSON(null, message)).build();
+			}
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return Response.serverError().entity(e.getMessage()).build();
+		}
+	}
+	
 
 	private static Object getStudentProperty(Student student, String studentPropertyStr) {
 		Object obj;

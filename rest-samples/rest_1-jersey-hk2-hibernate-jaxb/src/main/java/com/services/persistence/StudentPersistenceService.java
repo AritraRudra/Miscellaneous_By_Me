@@ -3,8 +3,11 @@ package com.services.persistence;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,11 +19,15 @@ import org.slf4j.LoggerFactory;
 
 import com.entity.Student;
 import com.managers.persistence.StudentsPersistenceManager;
+
+// Currently we are managing transactions by ourselves, not using JTA or any other Transaction Management ( we should ).
 @Stateless
 public final class StudentPersistenceService{
 	private final String className= StudentPersistenceService.class.getName();
 	protected static final Logger LOGGER = LoggerFactory.getLogger(StudentPersistenceService.class);
 
+	// https://stackoverflow.com/a/28998110/1679643
+	//@PersistenceContext(unitName = "student")
 	private static final EntityManager entityManager = StudentsPersistenceManager.INSTANCE.getEntityManager();
 	
 	private static EntityManager getEntityManager(){
@@ -116,5 +123,23 @@ public final class StudentPersistenceService{
 			return null;
 		}
 	}
-	
+
+	public boolean deleteStudentByID(int id) {
+		boolean studentDeleted = false;
+		// Wrong way to do in JPA
+		// Student studentFoundByID = getStudentByID(id);
+		// resultInt = (int)getEntityManager().createNamedQuery("Student.deleteByID").setParameter("id", id).executeUpdate();
+
+		// Correct one
+		// http://www.objectdb.com/java/jpa/persistence/delete, https://stackoverflow.com/a/11539796/1679643			
+		Student studentFoundByID = StudentPersistenceService.entityManager.find(Student.class, id);
+		if(studentFoundByID != null){
+			StudentPersistenceService.entityManager.getTransaction().begin();
+			StudentPersistenceService.entityManager.remove(studentFoundByID);
+			StudentPersistenceService.entityManager.getTransaction().commit();
+			studentDeleted = true;
+		}
+		return studentDeleted;
+	}
+
 }

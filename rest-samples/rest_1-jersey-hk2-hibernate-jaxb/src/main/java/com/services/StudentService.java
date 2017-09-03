@@ -41,4 +41,10 @@ public class StudentService {
 		LOGGER.info(className+"getStudentByID");
 		return studentPersistenceService.getStudentByID(studentID);
 	}
+
+	public boolean deleteStudentByID(int studentID) {
+		LOGGER.info(className+"deleteStudentByID");
+		return studentPersistenceService.deleteStudentByID(studentID);
+	}
+
 }

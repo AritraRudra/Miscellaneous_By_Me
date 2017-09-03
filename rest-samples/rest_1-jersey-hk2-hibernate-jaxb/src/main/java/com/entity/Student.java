@@ -30,7 +30,6 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.entity.adapters.DateAdapter;
-import com.entity.adapters.IDAdapter;
 
 /**
  * 
@@ -53,7 +52,11 @@ import com.entity.adapters.IDAdapter;
 			query = "SELECT s FROM Student s WHERE s.lastName = :lastName"), // same rule as above is applicable here also
 	@NamedQuery(name = "Student.getAllStudents",
 			query = "SELECT s FROM Student s")
-	})		// JPA
+	/*
+	@NamedQuery(name = "Student.deleteByID",
+			query = "DELETE FROM Student s WHERE s.id = :id")	// Transaction needed for update/delete, so em.find => then em.begin => update/delete => em.commit.
+	*/
+	})		// JPA Named Queries
 public class Student implements Serializable{
 	// Non-persistent fields must be marked as transient.
 	/**

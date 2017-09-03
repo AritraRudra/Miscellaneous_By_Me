@@ -12,7 +12,10 @@
         <param-name>jersey.config.server.provider.packages</param-name>
         <param-value>com.resources.rest</param-value>
     </init-param>
-    
+    <init-param>
+		<param-name>jersey.config.server.provider.classnames</param-name>
+		<param-value>org.glassfish.jersey.jackson.JacksonFeature</param-value>
+	</init-param>
     <!-- Application configuration, used for registering resources like filters  -->
     <!-- https://stackoverflow.com/documentation/jersey/7012/configuring-jax-rs-in-jersey/12837/java-jersey-configuration#t=20170806102049713882 -->
     <init-param>

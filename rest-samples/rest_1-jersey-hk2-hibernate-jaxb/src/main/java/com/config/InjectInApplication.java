@@ -3,6 +3,7 @@ package com.config;
 import java.util.HashSet;
 import java.util.Set;
 
+//import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.resources.rest.StudentResource;
 import com.resources.rest.StudentsResource;
 
@@ -25,6 +26,8 @@ public class InjectInApplication extends javax.ws.rs.core.Application {
 
 	@Override
 	public Set<Object> getSingletons() {
+		// https://stackoverflow.com/a/26318420/1679643
+		//singletons.add(new JacksonJsonProvider());
 		return singletons;
 	}
 }
