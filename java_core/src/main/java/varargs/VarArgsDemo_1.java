@@ -1,3 +1,4 @@
+package varargs;
 /**
  * Java Variable Length Arguments demo
  * @since JDK 1.5
@@ -13,7 +14,7 @@ public class VarArgsDemo_1 {
 	
 	 
 	 /**
-	  * A method can have “normal” parameters along with a variable-length parameter.
+	  * A method can have ï¿½normalï¿½ parameters along with a variable-length parameter.
 	  * 
 	  * Rule 1. However there can be only one variable argument in a method.
 	  * 	e.g., this will give compile error => varArgsWithNormalArgs(int normalArg1, boolean ... varArgs1, String normalArg2, int ... varArgs2){}
@@ -120,8 +121,8 @@ public class VarArgsDemo_1 {
 		 * following call: 
 		 * vaTest(1) 
 		 * Does this translate into a call to
-		 * vaTest(int …), with one varargs argument, or into a call to
-		 * vaTest(int, int …) with no varargs arguments?
+		 * vaTest(int ï¿½), with one varargs argument, or into a call to
+		 * vaTest(int, int ï¿½) with no varargs arguments?
 		 * There is no way for the compiler to answer this question. Thus, the situation is ambiguous.
 		 * </p>
 		 */
