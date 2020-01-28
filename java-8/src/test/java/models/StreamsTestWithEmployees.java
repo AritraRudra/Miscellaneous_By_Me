@@ -16,6 +16,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 // https://dzone.com/articles/a-guide-to-streams-in-java-8-in-depth-tutorial-wit
+// http://tutorials.jenkov.com/java-functional-programming/streams.html
+// https://www.journaldev.com/2774/java-8-stream
 class StreamsTestWithEmployees {
 
 	@BeforeAll
@@ -59,7 +61,12 @@ class StreamsTestWithEmployees {
 		assertEquals(empCount, 2);
 	}
 
-	// Short-circuiting operations allow computations on infinite streams to complete in finite time
+	// Short-circuiting operations allow computations on infinite streams to complete in finite time.
+
+	// An intermediate operation is called short circuiting, if it may produce finite stream for an infinite stream. For example limit() and skip()
+	// are two short circuiting intermediate operations.
+	// A terminal operation is called short circuiting, if it may terminate in finite time for infinite stream. For example anyMatch, allMatch,
+	// noneMatch, findFirst and findAny are short circuiting terminal operations
 	@Test
 	public void whenLimitInfiniteStream_thenGetFiniteElements() {
 		Stream<Integer> infiniteStream = Stream.iterate(2, i -> i * 2);
@@ -138,6 +145,41 @@ class StreamsTestWithEmployees {
 		assertEquals(noneMultipleOfThree, false);
 	}
 	
+	// Three "matchers" are also terminal operations.
+	@Test
+	public void testMatches() {
+		List<String> stringList = new ArrayList<String>();
+
+		stringList.add("One flew over the cuckoo's nest.");
+		stringList.add("To kill a mockingbird.");
+		stringList.add("Gone with the wind.");
+
+		Stream<String> splittedStream = stringList.stream().flatMap((value) -> {
+			String[] split = value.split(" ");
+			return (Stream<String>) Arrays.asList(split).stream();
+		});
+
+		Stream<String> splittedStream2 = splittedStream;
+		Stream<String> splittedStream3 = splittedStream;
+
+		boolean anyMatch = splittedStream.anyMatch((value) -> {
+			return value.contains("wind");
+		});
+		System.out.println(anyMatch);
+		
+		// java.lang.IllegalStateException: stream has already been operated upon or closed.
+		// Java Streams are consumable, so there is no way to create a reference to stream for future usage. Since the data is on-demand, it’s not
+		// possible to reuse the same stream multiple times. A stream can't be re-used, create new one.
+		// boolean allMatch = splittedStream2.anyMatch(value -> value.contains("kill"));
+		// System.out.println(allMatch);
+		
+		boolean noneMatch = stringList.stream().flatMap((value) -> {
+			String[] split = value.split(" ");
+			return (Stream<String>) Arrays.asList(split).stream();
+		}).noneMatch(value -> value.contains("mockingbird"));
+		System.out.println(noneMatch);
+	}
+	
 	@Test
 	public void whenApplySumOnIntStream_thenGetSum() {
 	    Double avgSal = prepareEmployeesList().stream()
@@ -165,9 +207,10 @@ class StreamsTestWithEmployees {
 	public void whenCollectByJoining_thenGetJoinedString() {
 	    String empNames = prepareEmployeesList().stream()
 	      .map(Employee::getFirstName)
+		   .map(String::toUpperCase)
 	      .collect(Collectors.joining(", "))
 	      .toString();
-		assertEquals(empNames, "Jeff, Bill, Larry, Pichai");
+		assertEquals(empNames, "JEFF, BILL, LARRY, PICHAI");
 	}
 
 	// summarizingDouble
@@ -192,6 +235,48 @@ class StreamsTestWithEmployees {
 
 		assertEquals(isEven.get(true).size(), 4);
 		assertEquals(isEven.get(false).size(), 1);
+	}
+
+	// flatmap
+	@Test
+	public void testFlatMap1() {
+		List<String> stringList = new ArrayList<String>();
+
+		stringList.add("One flew over the cuckoo's nest.");
+		stringList.add("To kill a mockingbird.");
+		stringList.add("Gone with the wind.");
+
+		stringList.stream().flatMap((value) -> {
+			String[] split = value.split(" ");
+			return (Stream<String>) Arrays.asList(split).stream();
+		}).forEach(System.out::print);
+	}
+	
+	// Concatenate Streams
+	@Test
+	public void testConcatStreams_1() {
+		List<String> stringList1 = new ArrayList<String>();
+
+		stringList1.add("One flew over the cuckoo's nest.");
+		stringList1.add("To kill a mockingbird.");
+		stringList1.add("Gone with the wind.");
+
+		Stream<String> stream1 = stringList1.stream();
+
+		List<String> stringList2 = new ArrayList<>();
+		stringList2.add("Lord of the Rings.");
+		stringList2.add("Planet of the Apes.");
+		stringList2.add("Phantom Menace.");
+
+		Stream<String> stream2 = stringList2.stream();
+
+		Stream<String> concatStream = Stream.concat(stream1, stream2);
+
+		List<String> stringsAsUppercaseList = concatStream
+				.map(s->s.toUpperCase())
+		        .collect(Collectors.toList());
+
+		System.out.println("\n" + stringsAsUppercaseList);
 	}
 
 	private List<Employee> prepareEmployeesList() {
