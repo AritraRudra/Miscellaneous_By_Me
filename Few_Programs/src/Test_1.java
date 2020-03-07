@@ -7,11 +7,10 @@ import java.util.TreeSet;
 public class Test_1 {
 	public static String someString = "Static String";
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		// A.b.doSomething() // similar to syso
 		System.out.println(new Test_1().getResult(2, Department.MARKETING));
 		System.out.println(someString);
-		// System.out.println(Long.valueOf("123.45")); //NFE
+		System.out.println(Long.valueOf("123.45")); // NFE
 	}
 
 	// Return Employees list with specified salary rank for the specified department (multiple employees with same salary
