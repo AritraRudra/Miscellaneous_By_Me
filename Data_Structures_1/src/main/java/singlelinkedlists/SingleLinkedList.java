@@ -114,10 +114,19 @@ public class SingleLinkedList<T> {
 	
 	@Override
 	public String toString() {
-		final StringBuilder sb = new StringBuilder(size);
-		while(head.next != null)
-			sb.append(head.val + ",");
-		sb.deleteCharAt(size);
+		if(head == null)
+			return "";
+		while(head.next == null)
+			return head.val.toString();
+
+		final StringBuilder sb = new StringBuilder();
+		Node<T> curr = head;
+		while(curr != null) {
+			sb.append(curr.val + ", ");
+			curr = curr.next;
+		}
+		// https://stackoverflow.com/a/3395329/1679643
+		sb.setLength(sb.length() - 2);
 		return sb.toString();		
 	}
 

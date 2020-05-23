@@ -12,8 +12,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<junit.version>4.12</junit.version>
-		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
+		<junit.version>4.13</junit.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
 		<jacoco.version>0.8.1</jacoco.version>
 	</properties>
 
@@ -41,6 +42,23 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-surefire-plugin</artifactId>
+               <version>${maven-surefire-plugin.version}</version>
+               <configuration>
+                  <!-- https://www.baeldung.com/maven-junit-parallel-tests -->
+                  <parallel>classesAndMethods </parallel>
+                  <threadCountClasses>3</threadCountClasses>
+                  <threadCountMethods>6</threadCountMethods>
+                  
+                  <!-- <threadCount>3</threadCount>  -->
+                  <forkCount>3</forkCount>
+                  <reuseForks>true</reuseForks>
+                  <argLine>-Xmx2048m</argLine>
+               </configuration>
+            </plugin>
 			
 			<!-- 
 			<plugin>

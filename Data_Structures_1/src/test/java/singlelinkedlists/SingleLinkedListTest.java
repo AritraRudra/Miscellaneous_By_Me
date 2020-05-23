@@ -2,6 +2,7 @@ package singlelinkedlists;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -14,6 +15,7 @@ public class SingleLinkedListTest {
 		assertTrue(list.isEmpty());
 		assertFalse(list.remove());
 		assertFalse(list.removeFromBeginning());
+		assertEquals("", list.toString());
 	}
 
 	@Test
@@ -25,12 +27,14 @@ public class SingleLinkedListTest {
 		assertTrue(list.remove());
 		assertFalse(list.remove());
 		assertFalse(list.removeFromBeginning());
+		assertEquals("", list.toString());
 
 		list = new SingleLinkedList<>(node);
 		assertFalse(list.isEmpty());
 		assertTrue(list.removeFromBeginning());
 		assertFalse(list.remove());
 		assertFalse(list.removeFromBeginning());
+		assertEquals("", list.toString());
 	}
 
 	@Test
@@ -43,6 +47,7 @@ public class SingleLinkedListTest {
 		assertFalse(list.isEmpty());
 		assertTrue(list.remove());
 		assertTrue(list.removeFromBeginning());
+		assertNotEquals("", list.toString());
 	}
 
 	@Test
@@ -55,6 +60,7 @@ public class SingleLinkedListTest {
 		assertFalse(list.isEmpty());
 		assertTrue(list.remove());
 		assertTrue(list.removeFromBeginning());
+		assertNotEquals("", list.toString());
 	}
 
 	@Test
@@ -79,6 +85,7 @@ public class SingleLinkedListTest {
 		assertFalse(list.isEmpty());
 		assertTrue(list.remove());
 		assertTrue(list.removeFromBeginning());
+		assertNotEquals("", list.toString());
 	}
 
 	@Test
@@ -100,21 +107,25 @@ public class SingleLinkedListTest {
 		assertFalse(list.isEmpty());
 		assertTrue(list.remove());
 		assertTrue(list.removeFromBeginning());
+		assertNotEquals("", list.toString());
 	}
 
 	@Test
 	public void testRemovalsOfAllElements() {
 		final SingleLinkedList<Integer> list = new SingleLinkedList<>();
 		int i = 1;
-		while (i <= 500)
+		while (i <= 50)
 			list.add(i++);
 
+		System.out.println(list);
 		while (list.remove());
 
 		assertEquals(0, list.size());
+
 		assertTrue(list.isEmpty());
 		assertFalse(list.remove());
 		assertFalse(list.removeFromBeginning());
+		assertEquals("", list.toString());
 	}
 
 
@@ -131,6 +142,7 @@ public class SingleLinkedListTest {
 		assertTrue(list.isEmpty());
 		assertFalse(list.remove());
 		assertFalse(list.removeFromBeginning());
+		assertEquals("", list.toString());
 	}
 
 	@Test
@@ -151,6 +163,7 @@ public class SingleLinkedListTest {
 		assertTrue(list.isEmpty());
 		assertFalse(list.remove());
 		assertFalse(list.removeFromBeginning());
+		assertEquals("", list.toString());
 	}
 
 }
