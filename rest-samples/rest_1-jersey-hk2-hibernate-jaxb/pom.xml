@@ -16,7 +16,7 @@
 	<description>Rest using JPA-Hibernate and JAXB with HK2 injector</description>
 
 	<properties>
-		<mysql-connector.version>6.0.6</mysql-connector.version>
+		<mysql-connector.version>8.0.16</mysql-connector.version>
 		<persistence-api.version>1.0.2</persistence-api.version>
 		<hibernate-core.version>5.2.10.Final</hibernate-core.version>
 		<!-- deprecated <hibernate-entitymanager.version>5.2.10.Final</hibernate-entitymanager.version> -->		
