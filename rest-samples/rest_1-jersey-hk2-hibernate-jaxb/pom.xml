@@ -27,7 +27,7 @@
 		<weld-servlet-shaded.version>3.0.0.Final</weld-servlet-shaded.version>
 		-->
 		<org.eclipse.persistence.moxy.version>2.6.4</org.eclipse.persistence.moxy.version>
-		<jackson.version>2.10.2</jackson.version>
+		<jackson.version>2.12.7.1</jackson.version>
 	</properties>
 
 	<dependencies>
